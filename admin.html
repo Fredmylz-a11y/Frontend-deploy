@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel — Rhinoverse</title>
+<style>
+  body{background:#1a2617;color:#f5efe6;font-family:sans-serif;padding:2rem;margin:0}
+  h1{margin-top:0}
+  .card{background:#2a3d24;padding:1rem;border-radius:.5rem;margin:1rem 0}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:.5rem;border-bottom:1px solid #3d5c3a;text-align:left}
+  .btn{padding:.3rem 1rem;border:none;border-radius:.3rem;cursor:pointer;margin-right:.25rem;color:#fff}
+  .btn-approve{background:#4caf50}
+  .btn-reject{background:#e74c3c}
+  .btn-toggle{background:#607d8b}
+  #error{color:#e6a8a8;display:none}
+</style>
+</head>
+<body>
+<h1>🦏 Admin Panel</h1>
+<div id="error"></div>
+<div id="stats" class="card" style="display:flex;gap:2rem;">
+  <div><strong id="totalUsers">—</strong> Users</div>
+  <div><strong id="totalRevenue">—</strong> Revenue</div>
+  <div><strong id="pendingWithdrawals">—</strong> Pending</div>
+</div>
+<div class="card"><h2>Users</h2>
+  <table><thead><tr><th>Username</th><th>Phone</th><th>Role</th><th>Action</th></tr></thead>
+  <tbody id="usersTable"></tbody></table>
+</div>
+<div class="card"><h2>Withdrawals (pending)</h2>
+  <table><thead><tr><th>User</th><th>Amount</th><th>Phone</th><th>Actions</th></tr></thead>
+  <tbody id="withdrawalsTable"></tbody></table>
+</div>
+<script>
+const API_BASE = 'https://rhinoversebackend.vercel.app/api';
+const token = localStorage.getItem('token');
+if (!token) location.href = '/';
+const headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+function showError(msg){ const e=document.getElementById('error'); e.textContent=msg; e.style.display='block'; }
+async function api(path, opts = {}){
+  const r = await fetch(API_BASE + path, { headers, cache:'no-store', ...opts });
+  const text = await r.text();
+  let data; try { data = text ? JSON.parse(text) : {}; } catch(_){ data = { message:text }; }
+  if (!r.ok) throw new Error(data.message || data.error || ('HTTP ' + r.status));
+  return data;
+}
+(async () => {
+  try {
+    const stats = await api('/admin/stats');
+    const s = stats.data || stats;
+    document.getElementById('totalUsers').textContent = s.totalUsers ?? '—';
+    document.getElementById('totalRevenue').textContent = s.totalRevenue ?? '—';
+    document.getElementById('pendingWithdrawals').textContent = s.pendingWithdrawals ?? '—';
+    const u = await api('/admin/users');
+    const users = u.data || u.users || u;
+    document.getElementById('usersTable').innerHTML = (users || []).map(x =>
+      `<tr><td>${x.username}</td><td>${x.phone}</td><td>${x.role||'user'}</td>
+       <td><button class="btn btn-toggle" onclick="toggleUser('${x.id||x._id}')">${x.isActive===false?'Activate':'Deactivate'}</button></td></tr>`).join('');
+    const w = await api('/admin/withdrawals?status=pending');
+    const ws = w.data || w.withdrawals || w;
+    document.getElementById('withdrawalsTable').innerHTML = (ws || []).map(x =>
+      `<tr><td>${x.userId||x.user||'—'}</td><td>${Number(x.amount||0).toLocaleString()} UGX</td><td>${x.phoneNumber||x.phone||'—'}</td>
+       <td><button class="btn btn-approve" onclick="approve('${x.id||x._id}')">Approve</button>
+           <button class="btn btn-reject" onclick="reject('${x.id||x._id}')">Reject</button></td></tr>`).join('');
+  } catch (err){ showError('Failed to load admin data: ' + err.message); }
+})();
+window.toggleUser = async (id) => { try { await api('/admin/users/'+id+'/toggle',{method:'POST'}); location.reload(); } catch(e){ alert(e.message); } };
+window.approve = async (id) => { try { await api('/admin/withdrawals/'+id,{method:'PATCH',body:JSON.stringify({status:'approved'})}); location.reload(); } catch(e){ alert(e.message); } };
+window.reject  = async (id) => { try { await api('/admin/withdrawals/'+id,{method:'PATCH',body:JSON.stringify({status:'rejected'})}); location.reload(); } catch(e){ alert(e.message); } };
+</script>
+</body>
+</html>
