@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhinoverse - Rhino Wealth</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d4af37;--gold2:#f5d547;--bg:#0f0e0a;--card:#1c1a15;--border:rgba(212,175,55,.22);--text:#f5efe6;--muted:#9a9188}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',system-ui;background:var(--bg);color:var(--text);padding-bottom:90px}
+.header{position:sticky;top:0;z-index:20;background:rgba(15,14,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Space Grotesk';font-weight:700;letter-spacing:.08em} .logo span{color:var(--gold)}
+.page{max-width:500px;margin:0 auto;padding:16px;display:none} .page.active{display:block}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--border);border-radius:1.2rem;padding:16px;margin:12px 0}
+.btn{height:46px;border:none;border-radius:.9rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a2617;font-weight:800;padding:0 18px;cursor:pointer;font-family:'Space Grotesk'}
+.product{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:1rem;padding:14px;margin:10px 0;display:flex;justify-content:space-between;align-items:center}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(15,14,10,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 14px}
+.nav-item{flex:1;text-align:center;font-size:.7rem;color:var(--muted);cursor:pointer;padding:6px} .nav-item.active{color:var(--gold)}
+.nav-item b{display:block;font-size:1.2rem;margin-bottom:2px}
+#homeProductsContainer:empty::before{content:"Loading 7 rhinos...";color:var(--muted);padding:20px;display:block}
+</style>
+</head>
+<body>
+<div class="header"><div class="logo">RHINO<span>VERSE</span></div><div style="font-size:.75rem;color:var(--gold);border:1px solid var(--border);padding:4px 10px;border-radius:999px">LIVE</div></div>
+
+<div id="homePage" class="page active">
+  <div class="card"><h3 style="font-family:Space Grotesk">🦏 Rhino Investments</h3><p style="color:var(--muted);font-size:.85rem;margin-top:6px">Daily returns • UGX • Secured by Postgres</p></div>
+  <div id="homeProductsContainer"></div>
+</div>
+
+<div id="walletPage" class="page"><div class="card"><h3>Wallet</h3><p style="color:var(--muted)">Balance & transactions from backend /api/me</p><div id="walletInfo" style="margin-top:10px"></div></div></div>
+<div id="teamPage" class="page"><div class="card"><h3>Team</h3><p style="color:var(--muted)">Your referrals</p></div></div>
+<div id="ordersPage" class="page"><div class="card"><h3>Orders</h3><div id="ordersList"></div></div></div>
+<div id="profilePage" class="page"><div class="card"><h3>Profile</h3><button class="btn" onclick="localStorage.clear();location.reload()">Logout</button></div></div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" data-tab="home"><b>🏠</b>Home</div>
+  <div class="nav-item" data-tab="wallet"><b>💼</b>Wallet</div>
+  <div class="nav-item" data-tab="team"><b>👥</b>Team</div>
+  <div class="nav-item" data-tab="orders"><b>📦</b>Orders</div>
+  <div class="nav-item" data-tab="profile"><b>👤</b>Mine</div>
+  <div class="nav-item" onclick="location.href='admin.html'"><b>⚙️</b>Admin</div>
+  <div class="nav-item" onclick="window.open('https://rhinoversebackend.vercel.app/api/products','_blank')"><b>🔗</b>API</div>
+</div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>
