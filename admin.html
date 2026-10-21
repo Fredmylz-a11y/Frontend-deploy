@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rhinoverse — Withdrawal Review</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#172216;color:#f5efe6;font:15px/1.5 system-ui,sans-serif;padding:24px}main{max-width:1100px;margin:auto}h1{margin-top:0;color:#d4af37}.card{background:#243522;border:1px solid #3d5c3a;border-radius:12px;padding:18px;margin:18px 0}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}input{flex:1;min-width:220px;background:#111b10;color:#fff;border:1px solid #60765b;border-radius:7px;padding:12px}button{border:0;border-radius:7px;padding:9px 13px;cursor:pointer;font-weight:700}.primary{background:#d4af37;color:#172216}.approve{background:#4caf50;color:#fff}.reject{background:#e74c3c;color:#fff}.paid{background:#4b9cd3;color:#fff}.muted{color:#c2cbbd}.status{padding:4px 8px;border-radius:5px;background:#3b4c37;display:inline-block}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid #3d5c3a;vertical-align:top}td.actions{white-space:nowrap}#message{white-space:pre-wrap}.table-wrap{overflow:auto}@media(max-width:650px){body{padding:12px}th,td{padding:7px;font-size:13px}}
+</style>
+</head>
+<body><main>
+<h1>Rhinoverse — Withdrawal Review</h1>
+<p class="muted">Admin-only manual review. Approving a withdrawal does not send money automatically. Use <b>Mark paid</b> only after you have confirmed the external bank/mobile-money transfer.</p>
+<section class="card">
+  <label for="adminSecret">Admin API secret</label>
+  <div class="row" style="margin-top:8px"><input id="adminSecret" type="password" autocomplete="current-password" placeholder="Enter ADMIN_API_SECRET"><button class="primary" id="loadBtn">Load withdrawals</button></div>
+  <p class="muted">The secret is kept in this page's memory only and is not saved to localStorage.</p>
+  <div id="message" role="status" aria-live="polite"></div>
+</section>
+<section class="card"><h2>Requests</h2><div class="table-wrap"><table><thead><tr><th>User ID</th><th>Amount</th><th>Payout account</th><th>Status</th><th>Actions</th></tr></thead><tbody id="withdrawalsTable"><tr><td colspan="5">Enter the admin secret and load requests.</td></tr></tbody></table></div></section>
+</main>
+<script>
+(() => {
+  const API_BASE = 'https://rhinoversebackend.vercel.app/api';
+  const secretInput = document.getElementById('adminSecret');
+  const message = document.getElementById('message');
+  const table = document.getElementById('withdrawalsTable');
+  let adminSecret = '';
+  const say = (text) => { message.textContent = text; };
+  async function request(path, method = 'GET') {
+    const response = await fetch(API_BASE + path, { method, headers: { 'x-admin-secret': adminSecret, 'Content-Type': 'application/json' }, cache: 'no-store' });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
+    return data;
+  }
+  function cell(row, value) { const td = document.createElement('td'); td.textContent = value == null ? '' : String(value); row.appendChild(td); return td; }
+  function actionButton(label, cls, handler) { const b = document.createElement('button'); b.textContent = label; b.className = cls; b.addEventListener('click', handler); return b; }
+  async function load() {
+    adminSecret = secretInput.value;
+    if (!adminSecret) { say('Enter the admin secret first.'); return; }
+    say('Loading withdrawal requests…');
+    try {
+      const data = await request('/admin/withdrawals');
+      table.replaceChildren();
+      const rows = data.withdrawals || [];
+      if (!rows.length) { const tr = document.createElement('tr'); const td = cell(tr, 'No pending or approved withdrawals.'); td.colSpan = 5; table.appendChild(tr); }
+      for (const w of rows) {
+        const tr = document.createElement('tr');
+        cell(tr, w.userId);
+        cell(tr, `${Number(w.amount || 0).toLocaleString()} UGX`);
+        const a = w.payoutAccount || {};
+        cell(tr, [a.holderName, a.bankName, a.accountNumber].filter(Boolean).join('\n') || 'No payout account details');
+        cell(tr, w.status);
+        const actions = document.createElement('td'); actions.className = 'actions';
+        if (w.status === 'pending') {
+          actions.append(actionButton('Approve', 'approve', () => act(w.id, 'approve')),' ',actionButton('Reject', 'reject', () => act(w.id, 'reject')));
+        } else if (w.status === 'approved_for_manual_payment') {
+          actions.append(actionButton('Mark paid', 'paid', () => act(w.id, 'paid')));
+        }
+        tr.appendChild(actions); table.appendChild(tr);
+      }
+      say(`Loaded ${rows.length} withdrawal request(s).`);
+    } catch (e) { say(e.message); }
+  }
+  async function act(id, action) {
+    const warning = action === 'paid' ? 'Confirm the external transfer has actually completed before marking this withdrawal paid.' : action === 'approve' ? 'Approve this request for manual payment? This does not send money.' : 'Reject this request and return the reserved funds to the user?';
+    if (!confirm(warning)) return;
+    try { const result = await request(`/admin/withdrawals/${encodeURIComponent(id)}/${action}`, 'POST'); say(result.message || 'Updated.'); await load(); }
+    catch (e) { say(e.message); }
+  }
+  document.getElementById('loadBtn').addEventListener('click', load);
+  secretInput.addEventListener('keydown', e => { if (e.key === 'Enter') load(); });
+})();
+</script>
+</body></html>
