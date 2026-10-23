@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rhinoverse Admin — Withdrawals</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#11190f;color:#f5efe6;font:16px system-ui,sans-serif;padding:20px;max-width:1100px;margin:auto}h1{color:#d8b63f}.card{background:#1e2c1a;border:1px solid #4e5127;border-radius:14px;padding:16px;margin:16px 0;overflow-x:auto}.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button,input,select{border-radius:8px;padding:10px 12px;border:1px solid #626238;background:#273522;color:#f5efe6}button{cursor:pointer;font-weight:700}.gold{background:#d5ad2c;color:#191b0c;border:0}.approve{background:#2d7745;color:white;border:0}.reject{background:#8a3434;color:white;border:0}table{width:100%;border-collapse:collapse;min-width:720px}th,td{text-align:left;padding:10px;border-bottom:1px solid #40513a;vertical-align:top}small,.muted{color:#b8c1ad}.status{display:inline-block;border:1px solid #657147;border-radius:99px;padding:3px 8px;font-size:12px}.notice{line-height:1.5;overflow-wrap:anywhere}#message{white-space:pre-wrap}.actions{display:flex;gap:7px;flex-wrap:wrap}.hide{display:none}
+</style>
+</head>
+<body>
+<h1>🦏 Rhinoverse Admin</h1>
+<p class="muted">Review user withdrawal requests. Approving sends the request to the configured MARZ Pay bank-transfer endpoint; it does not mean the transfer has completed.</p>
+<div class="card">
+  <div class="bar"><label for="adminSecret">Admin access key</label><input id="adminSecret" type="password" autocomplete="current-password" placeholder="Enter ADMIN_API_SECRET" style="flex:1;min-width:220px"><button class="gold" id="saveKey">Connect</button><button id="reload">Refresh requests</button><a href="/" style="color:#d8b63f;align-self:center">Open site</a></div>
+  <p class="muted">The key is kept only in this browser tab session. Never paste it into the source files.</p>
+</div>
+<div class="card notice"><strong>Live payments safety:</strong> Before approving a payout, confirm MARZ Pay bank transfer is enabled for your business, the required server IP is allowlisted, your account has sufficient UGX balance, and the account is subscribed to the bank-transfer service. For a provider timeout or “unknown” status, do not approve again until you reconcile the transfer in MARZ Pay.</div>
+<div class="card"><div class="bar"><h2 style="margin:0;flex:1">Withdrawal requests</h2><label for="filter">Status</label><select id="filter"><option value="all">All statuses</option><option value="pending">Pending approval</option><option value="provider_pending">Provider pending</option><option value="processing">Processing</option><option value="provider_unknown">Needs reconciliation</option><option value="paid">Paid</option><option value="rejected">Rejected</option><option value="failed_refunded">Failed/refunded</option></select></div><p id="message" class="muted">Connect with the admin access key to load requests.</p><table><thead><tr><th>User</th><th>Amount</th><th>Bank account</th><th>Status</th><th>Provider ref</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table></div>
+<script src="./api-config.js"></script>
+<script>
+(() => {
+  const apiBase=String(window.RHINOVERSE_API_BASE||localStorage.getItem('rhinoverseApiBase')||'https://rhinoversebackend.vercel.app/api').replace(/\/+$/,'');
+  const keyInput=document.getElementById('adminSecret'), message=document.getElementById('message'), rows=document.getElementById('rows');
+  const stored=sessionStorage.getItem('rhinoAdminKey'); if(stored)keyInput.value=stored;
+  const esc=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  async function request(path,method='GET'){
+    let response;
+    try{response=await fetch(apiBase+path,{method,headers:{'Content-Type':'application/json','X-Admin-Secret':sessionStorage.getItem('rhinoAdminKey')||''}})}
+    catch(e){throw new Error(`Cannot reach backend at ${apiBase}. Check the backend Vercel URL and /health endpoint.`)}
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||`Request failed (${response.status})`);
+    return data;
+  }
+  async function load(){
+    const key=keyInput.value.trim(); if(!key){message.textContent='Enter ADMIN_API_SECRET first.';return}
+    sessionStorage.setItem('rhinoAdminKey',key); message.textContent='Loading withdrawal requests…'; rows.innerHTML='';
+    try{
+      const state=document.getElementById('filter').value;
+      const result=await request('/admin/withdrawals?status='+encodeURIComponent(state));
+      const items=result.data||[];
+      message.textContent=`Loaded ${items.length} request(s).`;
+      if(!items.length){rows.innerHTML='<tr><td colspan="6" class="muted">No matching withdrawal requests.</td></tr>';return}
+      rows.innerHTML=items.map(w=>{
+        const canAct=w.status==='pending';
+        const canRefresh=Boolean(w.providerReference)&&['provider_pending','processing','provider_unknown'].includes(w.status);
+        return `<tr><td><strong>${esc(w.username||w.userId)}</strong><br><small>${esc(w.phone)}</small></td><td>${Number(w.amount||0).toLocaleString()} ${esc(w.currency||'UGX')}</td><td>${esc(w.holderName)}<br><small>${esc(w.bankName)} · ••••${esc(w.accountLast4)}</small></td><td><span class="status">${esc(w.status)}</span><br><small>${esc(w.providerStatus||'')}</small></td><td><small>${esc(w.providerReference||'—')}</small></td><td><div class="actions">${canAct?`<button class="approve" data-action="approve" data-id="${esc(w.id)}">Approve & send</button><button class="reject" data-action="reject" data-id="${esc(w.id)}">Reject</button>`:''}${canRefresh?`<button data-action="refresh" data-id="${esc(w.id)}">Check status</button>`:''}${!canAct&&!canRefresh?'<small>No action available</small>':''}</div></td></tr>`;
+      }).join('');
+    }catch(e){message.textContent=e.message;}
+  }
+  document.getElementById('saveKey').addEventListener('click',load);
+  document.getElementById('reload').addEventListener('click',load);
+  document.getElementById('filter').addEventListener('change',load);
+  rows.addEventListener('click',async e=>{
+    const button=e.target.closest('button[data-action]');if(!button)return;
+    const {id,action}=button.dataset;
+    if(action==='approve'&&!confirm('Approve this withdrawal and submit a real bank transfer through MARZ Pay?'))return;
+    if(action==='reject'&&!confirm('Reject this withdrawal and return the reserved amount to the user?'))return;
+    button.disabled=true; message.textContent='Processing action…';
+    try{const result=await request(`/admin/withdrawals/${encodeURIComponent(id)}/${action}`,'POST');message.textContent=result.message||result.error||`Status: ${result.status||'updated'}`;await load();}
+    catch(err){message.textContent=err.message;button.disabled=false;}
+  });
+  if(stored)load();
+})();
+</script>
+</body>
+</html>
