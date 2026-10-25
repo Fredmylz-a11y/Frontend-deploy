@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rhinoverse — Invest in Nature</title>
+    <meta name="description" content="Invest in Rhinoverse — Earn daily income while protecting rhinos." />
+
+    <!-- Google Font: Inter + Playfair Display for elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ============================================================
+                   RHINOVERSE — NATURE & GOLD THEME (Green, Brown, Gold)
+                   ============================================================ */
+
+        /* ----- RESET & BASE ----- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f0e0a;
+            color: #f5efe6;
+            min-height: 70vh;
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+            background: #1e2c1a;
+            /* Deep forest green base */
+            position: relative;
+            padding-bottom: 22px;
+            background-image: radial-gradient(ellipse at 20% 20%, #2a3d24 0%, #1a2617 80%);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        }
+
+        /* ----- SCROLLBAR ----- */
+        #app::-webkit-scrollbar {
+            width: 4px;
+        }
+        #app::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #app::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            /* Gold */
+            border-radius: 10px;
+        }
+
+        /* ----- PAGES ----- */
+        .page {
+            display: none;
+            animation: pageFadeIn 0.5s ease forwards;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+                   REGISTER PAGE — SAVANNA THEME (Green/Brown/Gold)
+                   ============================================================ */
+        .register-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            position: relative;
+            background: linear-gradient(180deg, #1e2c1a 0%, #2b1d14 70%, #3d291c 100%);
+            overflow: hidden;
+        }
+        .register-page::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M0 800 L800 800 L800 600 L0 600 Z' fill='%23b8860b' opacity='0.3' /%3E%3Ccircle cx='200' cy='650' r='80' fill='%234caf50' opacity='0.15' /%3E%3Ccircle cx='600' cy='700' r='120' fill='%232b1d14' opacity='0.1' /%3E%3C/svg%3E") no-repeat center/cover;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .register-page::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cpath d='M50 180 Q120 120 180 140 Q220 130 260 150 Q300 120 340 140 L380 180 L50 180' fill='%232b1d14' opacity='0.15' /%3E%3C/svg%3E") no-repeat bottom/100% auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .register-card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            background: rgba(26, 38, 23, 0.85);
+            backdrop-filter: blur(16px) saturate(1.2);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            border-radius: 2.5rem;
+            padding: 2rem 1.75rem 2.25rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(212, 175, 55, 0.15);
+            animation: cardFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brand-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 1.75rem;
+        }
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 0.25rem;
+        }
+        .logo-icon {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        .logo-icon svg {
+            width: 2.8rem;
+            height: 2.8rem;
+            color: #d4af37;
+            stroke-width: 2;
+        }
+        .logo-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: #1a2617;
+            font-size: 0.7rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(26, 38, 23, 0.8);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #f5efe6, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 0.1rem;
+            line-height: 1.1;
+        }
+        .brand-sub {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(245, 239, 230, 0.6);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-top: -0.2rem;
+        }
+        .brand-tagline {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-top: 0.25rem;
+            font-style: italic;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: rgba(245, 239, 230, 0.9);
+            letter-spacing: 0.01em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .form-label .optional {
+            font-weight: 400;
+            color: rgba(245, 239, 230, 0.4);
+            font-size: 0.7rem;
+        }
+        .input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0 1rem;
+            height: 3.25rem;
+            border-radius: 0.9rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .input-wrap:focus-within {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .input-wrap .icon {
+            flex-shrink: 0;
+            width: 1.1rem;
+            height: 1.1rem;
+            color: rgba(245, 239, 230, 0.5);
+            transition: color 0.2s;
+        }
+        .input-wrap:focus-within .icon {
+            color: #d4af37;
+        }
+        .input-wrap input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #f5efe6;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            padding: 0;
+            min-width: 0;
+        }
+        .input-wrap input::placeholder {
+            color: rgba(245, 239, 230, 0.3);
+            font-weight: 400;
+        }
+        .input-wrap input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px rgba(26, 38, 23, 0.9) inset !important;
+            -webkit-text-fill-color: #f5efe6 !important;
+        }
+        .toggle-pw {
+            flex-shrink: 0;
+            background: none;
+            border: none;
+            color: rgba(245, 239, 230, 0.35);
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+            border-radius: 0.4rem;
+        }
+        .toggle-pw:hover {
+            color: rgba(245, 239, 230, 0.7);
+        }
+        .toggle-pw svg {
+            width: 1.1rem;
+            height: 1.1rem;
+        }
+        .field-hint {
+            font-size: 0.7rem;
+            color: rgba(245, 239, 230, 0.35);
+            padding-left: 0.25rem;
+            min-height: 1.1rem;
+            transition: color 0.2s;
+        }
+        .field-hint.success {
+            color: #81c784;
+            /* Green */
+        }
+        .field-hint.error {
+            color: #e6a8a8;
+        }
+
+        .btn-submit {
+            margin-top: 0.25rem;
+            height: 3.5rem;
+            border: none;
+            border-radius: 1.1rem;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: #1a2617;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s;
+            box-shadow: 0 8px 24px -6px rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-submit:hover:not(:disabled) {
+            transform: scale(1.01);
+            box-shadow: 0 12px 32px -8px rgba(212, 175, 55, 0.6);
+        }
+        .btn-submit:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-submit .spinner {
+            display: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2.5px solid rgba(26, 38, 23, 0.25);
+            border-top-color: #1a2617;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        .btn-submit.loading .spinner {
+            display: block;
+        }
+        .btn-submit.loading .btn-text,
+        .btn-submit.loading .btn-icon {
+            display: none;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .footer-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: rgba(245, 239, 230, 0.6);
+        }
+        .footer-link a {
+            color: #d4af37;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(212, 175, 55, 0.3);
+            transition: border-color 0.2s;
+        }
+        .footer-link a:hover {
+            border-color: #d4af37;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 0 1rem;
+            pointer-events: none;
+        }
+        .toast {
+            pointer-events: auto;
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1rem;
+            background: rgba(26, 38, 23, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7);
+            color: #f5efe6;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(1.5rem) scale(0.96);
+            opacity: 0;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+        .toast.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .toast.hide {
+            transform: translateY(1rem) scale(0.94);
+            opacity: 0;
+        }
+        .toast-icon {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .toast-icon.success {
+            color: #81c784;
+        }
+        .toast-icon.error {
+            color: #e6a8a8;
+        }
+        .toast-icon.info {
+            color: #a8c4d6;
+        }
+        .toast-msg {
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        /* ============================================================
+                   COMMON HEADER
+                   ============================================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 18px 12px;
+        }
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(4px);
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            position: relative;
+        }
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .header-btn:active {
+            transform: scale(0.92);
+        }
+        .header-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.2;
+        }
+        .header-center {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .live-dot {
+            position: relative;
+            width: 10px;
+            height: 10px;
+        }
+        .live-dot .ping {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #d4af37;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+        }
+        .live-dot .core {
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: #d4af37;
+        }
+        @keyframes pulse-dot {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+        .clock-icon {
+            width: 16px;
+            height: 16px;
+            color: rgba(212, 175, 55, 0.7);
+        }
+        .clock-text {
+            font-variant-numeric: tabular-nums;
+            font-size: 11px;
+            font-weight: 700;
+            color: #d4c5b0>
+        }
+        .clock-text .tz {
+            opacity: 0.5;
+            font-weight: 500;
+        }
+        .notif-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e6a8a8;
+            border: 1.5px solid #1a2617;
+        }
+
+        /* ============================================================
+                   HOME PAGE
+                   ============================================================ */
+        .hero-section {
+            padding: 0 18px;
+            margin-top: 4px;
+        }
+        .hero-card {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            background: linear-gradient(145deg, #2b1d14, #1a2617);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: radial-gradient(circle at 30% 30%, #2a3d24, #1e2c1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-img svg {
+            width: 60%;
+            height: 60%;
+            color: rgba(212, 175, 55, 0.15);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 38, 23, 0.8) 20%, rgba(26, 38, 23, 0.2) 70%, rgba(26, 38, 23, 0.1) 100%);
+        }
+        .hero-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 22px 20px 20px;
+        }
+        .hero-title {
+            color: #f5efe6;
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+        }
+        .hero-title span {
+            color: #d4af37;
+        }
+        .hero-footer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .hero-tag {
+            border-left: 3px solid #d4af37;
+            padding-left: 10px;
+        }
+        .hero-tag p {
+            color: rgba(245, 239, 230, 0.7);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .hero-brand {
+            color: #d4af37;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 14px;
+        }
+        .hero-dots span {
+            width: 18px;
+            height: 4px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            transition: background 0.3s;
+        }
+        .hero-dots span.active {
+            background: #d4af37;
+            width: 28px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            padding: 0 18px;
+            margin-top: 24px;
+        }
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(6px);
+            border-radius: 24px;
+            padding: 14px 8px;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+        }
+        .quick-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: transform 0.15s;
+        }
+        .quick-item:active {
+            transform: scale(0.93);
+        }
+        .quick-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .quick-item:hover .quick-icon {
+            background: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2);
+        }
+        .quick-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #c8b8a0;
+            stroke-width: 1.7;
+            transition: color 0.2s;
+        }
+        .quick-item:hover .quick-icon svg {
+            color: #d4af37;
+        }
+        .quick-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #b0a088;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Section Head */
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+            margin: 28px 0 14px;
+        }
+        .section-head-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-head .accent-bar {
+            width: 4px;
+            height: 22px;
+            border-radius: 4px;
+            background: #d4af37;
+        }
+        .section-head h2 {
+            font-size: 17px;
+            font-weight: 800;
+            color: #f5efe6;
+            letter-spacing: -0.01em;
+        }
+        .section-head a {
+            font-size: 12px;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .section-head a:hover {
+            opacity: 0.7;
+        }
+
+        /* Products */
+        .products {
+            padding: 0 20px 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(6px);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            overflow: hidden;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .product-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        .product-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.03));
+            border-bottom: 1px solid rgba(212, 175, 55, 0.06);
+        }
+        .product-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #f5efe6;
+            letter-spacing: -0.02em;
+        }
+        .product-badge {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            padding: 4px 14px;
+            border-radius: 40px;
+            letter-spacing: 0.04em;
+        }
+        .product-body {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+        }
+        .product-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            background: linear-gradient(145deg, #2b1d14, #1a2617);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #d4af37;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            overflow: hidden;
+        }
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-dl {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 13px;
+        }
+        .product-dl .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-dl dt {
+            color: rgba(245, 239, 230, 0.5);
+            font-weight: 500;
+            font-size: 12px;
+        }
+        .product-dl dd {
+            color: #f5efe6;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .product-dl dd.highlight {
+            color: #d4af37;
+        }
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px 16px;
+            border-top: 1px solid rgba(212, 175, 55, 0.06);
+        }
+        .product-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #d4af37;
+        }
+        .product-price small {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(245, 239, 230, 0.4);
+        }
+        .btn-rent {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: #1a2617;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 6px 20px -4px rgba(212, 175, 55, 0.3);
+        }
+        .btn-rent:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 28px -4px rgba(212, 175, 55, 0.5);
+        }
+        .btn-rent:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================================
+                   PAGE — FILTER TABS
+                   ============================================================ */
+        .filter-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 0 18px;
+            margin-top: 16px;
+        }
+        .filter-tab {
+            padding: 12px 0;
+            border-radius: 14px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(245, 239, 230, 0.5);
+        }
+        .filter-tab.active {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: #1a2617;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+        }
+        .filter-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f5efe6;
+        }
+
+        /* ============================================================
+                   TEAM PAGE — LEVELS & COMMISSIONS
+                   ============================================================ */
+        .team-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 18px;
+            margin-top: 16px;
+        }
+        .team-stat-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+        .team-stat-card .value {
+            font-size: 22px;
+            font-weight: 800;
+            color: #f5efe6;
+        }
+        .team-stat-card .value.primary {
+            color: #d4af37;
+        }
+        .team-stat-card .label {
+            font-size: 11px;
+            color: rgba(245, 239, 230, 0.4);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .invite-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 18px 0;
+        }
+        .invite-box .label {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(245, 239, 230, 0.6);
+            margin-bottom: 8px;
+        }
+        .invite-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 4px 4px 4px 14px;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+        }
+        .invite-row .code {
+            flex: 1;
+            font-weight: 600;
+            font-size: 14px;
+            color: #f5efe6;
+            font-family: 'Inter', monospace;
+            letter-spacing: 0.04em;
+        }
+        .invite-row .link-text {
+            flex: 1;
+            font-size: 11px;
+            color: rgba(245, 239, 230, 0.4);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .btn-copy {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border: none;
+            color: #1a2617;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .btn-copy:hover {
+            transform: scale(1.03);
+        }
+        .btn-copy:active {
+            transform: scale(0.94);
+        }
+        .btn-copy svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .team-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 0 18px;
+            margin-top: 20px;
+        }
+        .team-tab {
+            padding: 12px 0;
+            border: none;
+            background: transparent;
+            color: rgba(245, 239, 230, 0.4);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.25s;
+        }
+        .team-tab.active {
+            color: #d4af37;
+            border-bottom-color: #d4af37;
+        }
+        .team-tab:hover:not(.active) {
+            color: rgba(245, 239, 230, 0.7);
+        }
+        .team-tab .commission-badge {
+            font-size: 10px;
+            background: rgba(212, 175, 55, 0.15);
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 4px;
+            color: #d4af37;
+        }
+
+        .task-list {
+            padding: 0 18px;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.06);
+            border-radius: 14px;
+            padding: 12px 14px;
+        }
+        .task-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .task-icon svg {
+            width: 20px;
+            height: 20px;
+            color: #d4af37;
+        }
+        .task-info {
+            flex: 1;
+        }
+        .task-info .title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #f5efe6;
+        }
+        .task-info .desc {
+            font-size: 11px;
+            color: rgba(245, 239, 230, 0.4);
+            margin-top: 1px;
+        }
+        .task-reward {
+            font-weight: 700;
+            font-size: 13px;
+            color: #d4af37;
+            text-align: right;
+        }
+        .task-status {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(245, 239, 230, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+        }
+        .task-status.locked {
+            color: #e6a8a8;
+            border-color: rgba(230, 168, 168, 0.2);
+            background: rgba(230, 168, 168, 0.08);
+        }
+        .task-status.unlocked {
+            color: #81c784;
+            border-color: rgba(129, 199, 132, 0.2);
+            background: rgba(129, 199, 132, 0.08);
+        }
+
+        /* Invited Members List */
+        .members-list {
+            padding: 0 18px;
+            margin-top: 16px;
+            margin-bottom: 20px;
+        }
+        .members-list .list-header {
+            display: grid;
+            grid-template-columns: 5fr 3fr 3fr;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.06);
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(245, 239, 230, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .member-item {
+            display: grid;
+            grid-template-columns: 5fr 3fr 3fr;
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 13px;
+            color: #f5efe6;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .member-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .member-item .status-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: rgba(129, 199, 132, 0.15);
+            color: #81c784;
+            text-align: center;
+            width: fit-content;
+            justify-self: center;
+        }
+        .member-item .status-badge.inactive {
+            background: rgba(230, 168, 168, 0.1);
+            color: #e6a8a8;
+        }
+        .member-item .join-date {
+            color: rgba(245, 239, 230, 0.5);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* ============================================================
+                   ACCOUNT PAGE — MY PRODUCTS SECTION
+                   ============================================================ */
+        .my-products-section {
+            padding: 0 18px;
+            margin-top: 24px;
+        }
+        .my-products-section .product-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: border-color 0.2s;
+        }
+        .my-products-section .product-item:hover {
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+        .my-products-section .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .my-products-section .product-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: #f5efe6;
+        }
+        .my-products-section .product-details {
+            font-size: 12px;
+            color: rgba(245, 239, 230, 0.6);
+        }
+        .my-products-section .product-daily {
+            font-weight: 700;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        .my-products-section .product-total {
+            font-size: 12px;
+            color: rgba(245, 239, 230, 0.5);
+        }
+        .my-products-section .empty-state {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(245, 239, 230, 0.3);
+            font-size: 14px;
+        }
+
+        /* Account Page Styles */
+        .profile-header {
+            background: linear-gradient(135deg, #2b1d14, #1a2617);
+            padding: 24px 20px 40px;
+            position: relative;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        .profile-header .top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .profile-header .user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+        }
+        .profile-avatar svg {
+            width: 24px;
+            height: 24px;
+            color: #d4af37;
+        }
+        .profile-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #f5efe6;
+        }
+        .profile-phone {
+            font-size: 12px;
+            color: rgba(245, 239, 230, 0.6);
+            margin-top: 2px;
+        }
+        .profile-badge {
+            background: rgba(76, 175, 80, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            color: #81c784;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 40px;
+        }
+
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 0 18px;
+            margin-top: 10px;
+        }
+        .wallet-grid .wallet-card {
+            background: linear-gradient(135deg, #2b1d14, #1a2617);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+        }
+        .wallet-grid .wallet-card .amount {
+            font-size: 20px;
+            font-weight: 800;
+            color: #d4af37;
+        }
+        .wallet-grid .wallet-card .label {
+            font-size: 10px;
+            color: rgba(245, 239, 230, 0.5);
+            margin-top: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .wallet-grid .wallet-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 0 5px;
+            margin-top: 15px;
+        }
+        .btn-action {
+            padding: 20px 5;
+            border: none;
+            border-radius: 40px;
+            font-weight: 900;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+        }
+        .btn-action:active {
+            transform: scale(0.96);
+        }
+        .btn-action.primary {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: #1a2617;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25);
+        }
+        .btn-action.primary:hover {
+            box-shadow: 0 6px 24px rgba(212, 175, 55, 0.4);
+        }
+        .btn-action.secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #f5efe6;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 0 18px;
+            margin-top: 24px;
+        }
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 0;
+            border-radius: 14px;
+            background: transparent;
+            border: none;
+            color: rgba(245, 239, 230, 0.6);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #f5efe6;
+        }
+        .menu-item .icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .menu-item:hover .icon-wrap {
+            background: rgba(212, 175, 55, 0.1);
+        }
+        .menu-item .icon-wrap svg {
+            width: 24px;
+            height: 24px;
+            color: #d4af37;
+            stroke-width: 1.8;
+        }
+        .menu-item .label {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .support-links {
+            padding: 0 18px;
+            margin-top: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .support-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.06);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .support-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .support-link .icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2b1d14, #1a2617);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .support-link .icon-box svg {
+            width: 20px;
+            height: 20px;
+            color: #d4af37;
+        }
+        .support-link .info {
+            flex: 1;
+        }
+        .support-link .info .title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #f5efe6;
+        }
+        .support-link .info .sub {
+            font-size: 11px;
+            color: rgba(245, 239, 230, 0.4);
+            margin-top: 1px;
+        }
+        .support-link .arrow {
+            color: rgba(245, 239, 230, 0.2);
+            font-size: 20px;
+        }
+
+        .btn-signout {
+            width: calc(100% - 36px);
+            margin: 0 18px 20px;
+            padding: 16px 0;
+            border: none;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e6a8a8;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(230, 168, 168, 0.1);
+        }
+        .btn-signout:hover {
+            background: rgba(230, 168, 168, 0.08);
+        }
+        .btn-signout:active {
+            transform: scale(0.97);
+        }
+        .btn-signout svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ============================================================
+                   BOTTOM NAV
+                   ============================================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 430px;
+            background: linear-gradient(180deg, rgba(26, 38, 23, 0.92) 0%, rgba(26, 38, 23, 0.98) 100%);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-top: 1px solid rgba(212, 175, 55, 0.08);
+            padding: 10px 8px 18px;
+            z-index: 100;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: center;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 6px 0;
+            transition: transform 0.15s;
+            color: rgba(245, 239, 230, 0.35);
+        }
+        .nav-item:active {
+            transform: scale(0.92);
+        }
+        .nav-item svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 2.2;
+            transition: color 0.2s;
+        }
+        .nav-item .nav-label {
+            font-size: 12px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .nav-item.active svg {
+            color: #d4af37;
+        }
+        .nav-item.active .nav-label {
+            color: #d4af37;
+        }
+        .nav-item:not(.active) svg {
+            color: rgba(245, 239, 230, 0.35);
+        }
+        .nav-item:not(.active) .nav-label {
+            color: rgba(245, 239, 230, 0.35);
+        }
+
+        /* ============================================================
+                   BOTTOM SPACER
+                   ============================================================ */
+        .bottom-spacer {
+            height: 130px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 480px) {
+            .register-card {
+                padding: 1.5rem 1.25rem 1.75rem;
+                border-radius: 2rem;
+            }
+            .brand-title {
+                font-size: 1.8rem;
+            }
+            .logo-icon {
+                width: 4rem;
+                height: 4rem;
+            }
+            .logo-icon svg {
+                width: 2.2rem;
+                height: 2.2rem;
+            }
+            .input-wrap {
+                height: 3rem;
+                padding: 0 0.85rem;
+            }
+            .btn-submit {
+                height: 3.1rem;
+                font-size: 0.95rem;
+            }
+
+            .hero-title {
+                font-size: 20px;
+            }
+            .hero-brand {
+                font-size: 18px;
+            }
+            .quick-icon {
+                width: 44px;
+                height: 44px;
+            }
+            .quick-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .quick-label {
+                font-size: 10px;
+            }
+            .product-body {
+                flex-wrap: wrap;
+            }
+            .product-img {
+                width: 64px;
+                height: 64px;
+                font-size: 26px;
+            }
+            .product-price {
+                font-size: 17px;
+            }
+            .btn-rent {
+                padding: 8px 20px;
+                font-size: 12px;
+            }
+            .header-center .clock-text {
+                font-size: 10px;
+            }
+            .members-list .list-header,
+            .member-item {
+                grid-template-columns: 4fr 3fr 2fr;
+                font-size: 12px;
+            }
+            .member-item .join-date {
+                font-size: 10px;
+            }
+            .bottom-spacer {
+                height: 110px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .quick-grid {
+                gap: 4px;
+                padding: 10px 4px;
+            }
+            .quick-icon {
+                width: 38px;
+                height: 38px;
+                border-radius: 12px;
+            }
+            .quick-icon svg {
+                width: 17px;
+                height: 17px;
+            }
+            .bottom-spacer {
+                height: 100px;
+            }
+        }
+
+        /* ============================================================
+                   UTILITY HELPERS
+                   ============================================================ */
+        .hidden {
+            display: none !important;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mt-1 {
+            margin-top: 4px;
+        }
+        .mt-2 {
+            margin-top: 8px;
+        }
+        .mt-3 {
+            margin-top: 12px;
+        }
+        .mb-2 {
+            margin-bottom: 8px;
+        }
+        .gap-2 {
+            gap: 8px;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-col {
+            flex-direction: column;
+        }
+        .items-center {
+            align-items: center;
+        }
+        .justify-between {
+            justify-content: space-between;
+        }
+        .w-full {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== APP SHELL ===== -->
+    <div id="app">
+
+        <!-- ============================================================
+        PAGE 1 — REGISTER
+        ============================================================ -->
+        <div class="page active" id="page-register">
+            <div class="register-page">
+                <div class="register-card" role="main" aria-label="Registration form">
+                    <!-- Brand with Rhino icon -->
+                    <div class="brand-header">
+                        <div class="logo-wrapper">
+                            <div class="logo-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                    <path d="M2 17l10 5 10-5" />
+                                    <path d="M2 12l10 5 10-5" />
+                                    <path d="M12 22V12" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </div>
+                            <span class="logo-badge">♻</span>
+                        </div>
+                        <h1 class="brand-title">Rhinoverse</h1>
+                        <p class="brand-sub">Invest · Protect · Earn</p>
+                        <p class="brand-tagline">Join the herd, secure the future</p>
+                    </div>
+
+                    <!-- Form -->
+                    <form class="register-form" id="registerForm" novalidate>
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">Full Name <span class="optional">(no spaces)</span></label>
+                            <div class="input-wrap">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <input type="text" id="fullName" placeholder="Username" inputmode="text" maxlength="20" autocomplete="username" required />
+                            </div>
+                            <div class="field-hint" id="nameHint">Use letters &amp; numbers, no spaces</div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <div class="input-wrap">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                </svg>
+                                <input type="tel" id="phone" placeholder="07XXXXXXXX" inputmode="numeric" maxlength="10" autocomplete="tel" required />
+                            </div>
+                            <div class="field-hint" id="phoneHint">10 digits, starting with 07</div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password <span class="optional">6 digits</span></label>
+                            <div class="input-wrap">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                                <input type="password" id="password" placeholder="••••••" inputmode="numeric" maxlength="6" autocomplete="new-password" required />
+                                <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="field-hint" id="pwHint">Exactly 6 digits</div>
+                        </div>
+
+                        <!-- Referral -->
+                        <div class="form-group">
+                            <label class="form-label" for="referral">Referral Code <span class="optional">optional</span></label>
+                            <div class="input-wrap">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 7v14" />
+                                    <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+                                    <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+                                    <rect x="3" y="7" width="18" height="4" rx="1" />
+                                </svg>
+                                <input type="text" id="referral" placeholder="usernameOfInviter" autocomplete="off" />
+                            </div>
+                            <div class="field-hint" id="refHint">Leave blank or enter inviter's username</div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span class="spinner"></span>
+                            <span class="btn-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <line x1="19" x2="19" y1="8" y2="14" />
+                                    <line x1="22" x2="16" y1="11" y2="11" />
+                                </svg>
+                            </span>
+                            <span class="btn-text">Join the Herd</span>
+                        </button>
+                    </form>
+
+                    <div class="footer-link">
+                        Already have an account? <a href="#" onclick="switchPage('page-home')">Login</a>
+                    </div>
+                </div>
+
+                <!-- Toast Container -->
+                <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        PAGE 2 — HOME
+        ============================================================ -->
+        <div class="page" id="page-home">
+            <!-- Header -->
+            <header class="header">
+                <button class="header-btn" aria-label="Home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                    </svg>
+                </button>
+                <div class="header-center">
+                    <div class="live-dot">
+                        <span class="ping"></span>
+                        <span class="core"></span>
+                    </div>
+                </div>
+                <button class="header-btn" aria-label="Notifications">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+                        <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .741-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />
+                    </svg>
+                    <span class="notif-badge"></span>
+                </button>
+            </header>
+
+            <!-- Hero with Rhino silhouette -->
+            <section class="hero-section">
+                <div class="hero-card">
+                    <div class="hero-img">
+                        <svg viewBox="0 0 200 150" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M30 120 Q60 80 100 90 Q130 100 160 80 L190 110 L180 130 L160 140 L120 135 L80 140 L40 130 L30 120" stroke="#d4af37" opacity="0.3" />
+                            <circle cx="100" cy="70" r="25" stroke="#d4af37" opacity="0.2" />
+                            <path d="M80 70 L60 50" stroke="#d4af37" opacity="0.2" />
+                            <path d="M120 70 L140 50" stroke="#d4af37" opacity="0.2" />
+                        </svg>
+                    </div>
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <div>
+                            <div class="hero-title">
+                                Favour the Future<br />
+                                <span>Protect the Rhino</span>
+                            </div>
+                        </div>
+                        <div class="hero-footer">
+                            <div class="hero-tag">
+                           
+                            </div>
+                            <span class="hero-brand">Rhinoverse</span>
+                        </div>
+                    </div>
+                    <div class="hero-dots">
+                        <span class="active"></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <div class="quick-grid">
+                    <button class="quick-item" id="rechargeQuickBtn" onclick="triggerRecharge()">
+                        <span class="quick-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+                                <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+                            </svg>
+                        </span>
+                        <span class="quick-label">Recharge</span>
+                    </button>
+                    <button class="quick-item" id="withdrawQuickBtn" onclick="triggerWithdraw()">
+                        <span class="quick-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="12" x="2" y="6" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01M18 12h.01" />
+                            </svg>
+                        </span>
+                        <span class="quick-label">Withdraw</span>
+                    </button>
+                    <button class="quick-item" onclick="openSupport(); return false;">
+                        <span class="quick-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </span>
+                        <span class="quick-label">Customer<br />Service</span>
+                    </button>
+                    <button class="quick-item" id="checkinQuickBtn" onclick="triggerCheckin()">
+                        <span class="quick-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                            </svg>
+                        </span>
+                        <span class="quick-label">Check-in</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Products -->
+            <div class="section-head">
+                <div class="section-head-left">
+                    <span class="accent-bar"></span>
+                    <h2>Investment Packages</h2>
+                </div>
+                <a href="#" onclick="switchPage('page-machines'); return false;">See all →</a>
+            </div>
+
+            <section class="products" id="homeProducts">
+                <!-- Products will be dynamically rendered by JavaScript -->
+                <div id="homeProductsContainer"></div>
+            </section>
+
+            <!-- Spacer to push content above the fixed bottom nav -->
+            <div class="bottom-spacer"></div>
+
+            <!-- Bottom Nav -->
+            <nav class="bottom-nav">
+                <div class="nav-grid">
+                    <a class="nav-item active" href="#" onclick="switchPage('page-home'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                        </svg>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-machines'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4" />
+                            <path d="M12 3v1" />
+                            <path d="M12 20v1" />
+                            <path d="M3 12h1" />
+                            <path d="M20 12h1" />
+                            <path d="m18.364 5.636-.707.707" />
+                            <path d="m6.343 17.657-.707.707" />
+                            <path d="m5.636 5.636.707.707" />
+                            <path d="m17.657 17.657.707.707" />
+                        </svg>
+                        <span class="nav-label">Machine</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-team'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Team</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-account'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Me</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- ============================================================
+        PAGE 3 — / PRODUCTS
+        ============================================================ -->
+        <div class="page" id="page-machines">
+            <!-- Header -->
+            <header class="header" style="padding-bottom:4px;">
+                <button class="header-btn" aria-label="Back" onclick="switchPage('page-home')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m12 19-7-7 7-7" />
+                        <path d="M19 12H5" />
+                    </svg>
+                </button>
+                <div class="header-center" style="gap:6px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#d4af37;">
+                        <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+                        <path d="M12 22V12" />
+                        <polyline points="3.29 7 12 12 20.71 7" />
+                        <path d="m7.5 4.27 9 5.15" />
+                    </svg>
+                    <span style="font-size:15px;font-weight:800;color:#f5efe6;">Investment Packages</span>
+                </div>
+                <span style="width:40px;"></span>
+            </header>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="Packages">packages</button>
+                <!-- You can add more filters later -->
+            </div>
+
+            <!-- Products List -->
+            <section class="products" style="margin-top:16px;" id="allProducts">
+                <!-- Products will be dynamically rendered by JavaScript -->
+                <div id="allProductsContainer"></div>
+            </section>
+
+            <!-- Spacer -->
+            <div class="bottom-spacer"></div>
+
+            <!-- Bottom Nav -->
+            <nav class="bottom-nav">
+                <div class="nav-grid">
+                    <a class="nav-item" href="#" onclick="switchPage('page-home'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                        </svg>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a class="nav-item active" href="#" onclick="switchPage('page-machines'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4" />
+                            <path d="M12 3v1" />
+                            <path d="M12 20v1" />
+                            <path d="M3 12h1" />
+                            <path d="M20 12h1" />
+                            <path d="m18.364 5.636-.707.707" />
+                            <path d="m6.343 17.657-.707.707" />
+                            <path d="m5.636 5.636.707.707" />
+                            <path d="m17.657 17.657.707.707" />
+                        </svg>
+                        <span class="nav-label">Machine</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-team'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Team</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-account'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Me</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- ============================================================
+        PAGE 4 — TEAM
+        ============================================================ -->
+        <div class="page" id="page-team">
+            <!-- Header -->
+            <header class="header" style="padding-bottom:4px;">
+                <button class="header-btn" aria-label="Back" onclick="switchPage('page-home')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m12 19-7-7 7-7" />
+                        <path d="M19 12H5" />
+                    </svg>
+                </button>
+                <div style="font-size:16px;font-weight:800;color:#f5efe6;">My Team</div>
+                <span style="width:40px;"></span>
+            </header>
+
+            <!-- Stats Grid (placeholder – you can connect to API later) -->
+            <div class="team-stats-grid">
+                <div class="team-stat-card" style="background:linear-gradient(135deg,#2b1d14,#1a2617);border-color:rgba(212,175,55,0.15);">
+                    <div class="value" style="color:#d4af37;" id="totalTeamIncome">0 UGX</div>
+                    <div class="label">Total Team Income</div>
+                </div>
+                <div class="team-stat-card" style="background:linear-gradient(135deg,#2b1d14,#1a2617);border-color:rgba(212,175,55,0.15);">
+                    <div class="value" style="color:#d4af37;" id="totalInvitations">0</div>
+                    <div class="label">Total Invitations</div>
+                </div>
+                <div class="team-stat-card" style="background:linear-gradient(135deg,#2b1d14,#1a2617);border-color:rgba(212,175,55,0.15);">
+                    <div class="value" style="color:#d4af37;" id="activeMembers">0</div>
+                    <div class="label">Active Members</div>
+                </div>
+                <div class="team-stat-card" style="background:linear-gradient(135deg,#2b1d14,#1a2617);border-color:rgba(212,175,55,0.15);">
+                    <div class="value" style="color:#81c784;" id="yourBonus">0 UGX</div>
+                    <div class="label">Your Bonus</div>
+                </div>
+            </div>
+
+            <!-- Invite Code – static for now -->
+            <div class="invite-box">
+                <div class="label">Invitation Code</div>
+                <div class="invite-row">
+                    <span class="code" id="inviteCodeDisplay">Loading…</span>
+                    <button class="btn-copy" onclick="copyText(document.getElementById('inviteCodeDisplay').textContent)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                        </svg>
+                        COPY
+                    </button>
+                </div>
+                <div class="label" style="margin-top:12px;">Invitation Link</div>
+                <div class="invite-row">
+                    <span class="link-text">https://www.rhinoversegaz.com/register?ref=<span id="inviteLinkRef">Loading…</span></span>
+                    <button class="btn-copy" onclick="copyText('https://www.rhinoversegaz.com/register?ref='+document.getElementById('inviteLinkRef').textContent)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                        </svg>
+                        COPY
+                    </button>
+                </div>
+            </div>
+
+            <!-- Team Tabs: Level 1, 2, 3 -->
+            <div class="team-tabs">
+                <button class="team-tab active" data-level="1">Level 1 <span class="commission-badge">30%</span></button>
+                <button class="team-tab" data-level="2">Level 2 <span class="commission-badge">2%</span></button>
+                <button class="team-tab" data-level="3">Level 3 <span class="commission-badge">1%</span></button>
+            </div>
+
+            <!-- Level stats -->
+            <div id="levelStats" style="padding:0 18px;margin-top:8px;">
+                <div class="team-stats-grid" style="grid-template-columns:1fr 1fr;">
+                    <div class="team-stat-card"><div class="value" id="levelMembers">0</div><div class="label">Members in this level</div></div>
+                    <div class="team-stat-card"><div class="value primary" id="levelCommission">0 UGX</div><div class="label">Commission earned</div></div>
+                </div>
+            </div>
+
+            <!-- Members list -->
+            <div class="members-list" style="margin-bottom:30px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:0 4px;">
+                    <span style="font-weight:700;font-size:14px;color:#f5efe6;">Members at this level</span>
+                    <span style="font-size:11px;color:rgba(245,239,230,0.3);" id="levelMemberCount">0</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.08);border-radius:14px;overflow:hidden;">
+                    <div class="list-header">
+                        <span>Member</span><span style="text-align:center;">Joined</span><span style="text-align:center;">Status</span>
+                    </div>
+                    <div id="memberListContainer">
+                        <!-- Populated by JavaScript (placeholder) -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks -->
+            <div style="padding:0 18px;margin-top:20px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:#d4af37;">
+                        <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+                        <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+                        <rect x="3" y="7" width="18" height="4" rx="1" />
+                    </svg>
+                    <span style="font-weight:700;font-size:14px;color:#f5efe6;">Management Tasks — Recharge Rewards</span>
+                </div>
+                <p style="font-size:12px;color:rgba(245,239,230,0.4);margin-bottom:12px;">Downline recharge: <span style="color:#d4af37;font-weight:700;">0 UGX</span></p>
+                <div class="task-list" style="padding:0;">
+                    <div class="task-item">
+                        <div class="task-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" /><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /><rect x="3" y="7" width="18" height="4" rx="1" /></svg></div>
+                        <div class="task-info"><div class="title">Invite 5 members</div><div class="desc">5,000 UGX / month</div></div>
+                        <span class="task-status unlocked">Unlocked</span>
+                    </div>
+                    <div class="task-item">
+                        <div class="task-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" /><path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /><rect x="3" y="7" width="18" height="4" rx="1" /></svg></div>
+                        <div class="task-info"><div class="title">Invite 15 members</div><div class="desc">7,000 UGX / month</div></div>
+                        <span class="task-status locked">Locked</span>
+                    </div>
+                    <div class="task-item">
+                        <div class="task-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></svg></div>
+                        <div class="task-info"><div class="title">Downline recharges 45,000 UGX</div><div class="desc">Bonus reward</div></div>
+                        <span class="task-status locked">Locked</span>
+                    </div>
+                </div>
+                <p style="font-size:11px;color:rgba(245,239,230,0.3);text-align:center;margin-top:12px;">Salary is automatically credited to your withdraw balance when eligible.</p>
+            </div>
+
+            <!-- Spacer -->
+            <div class="bottom-spacer"></div>
+
+            <!-- Bottom Nav -->
+            <nav class="bottom-nav">
+                <div class="nav-grid">
+                    <a class="nav-item" href="#" onclick="switchPage('page-home'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                        </svg>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-machines'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4" />
+                            <path d="M12 3v1" />
+                            <path d="M12 20v1" />
+                            <path d="M3 12h1" />
+                            <path d="M20 12h1" />
+                            <path d="m18.364 5.636-.707.707" />
+                            <path d="m6.343 17.657-.707.707" />
+                            <path d="m5.636 5.636.707.707" />
+                            <path d="m17.657 17.657.707.707" />
+                        </svg>
+                        <span class="nav-label">Machine</span>
+                    </a>
+                    <a class="nav-item active" href="#" onclick="switchPage('page-team'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Team</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-account'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Me</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- ============================================================
+        PAGE 5 — ACCOUNT
+        ============================================================ -->
+        <div class="page" id="page-account">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="top-row">           
+                    <div class="user">
+                        <div class="profile-avatar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="profile-name" id="profileName">@User</div>
+                            <div class="profile-phone" id="profilePhone">Phone: 07XXXXXXXX</div>
+                        </div>
+                    </div>
+                    <span class="profile-badge">🌿 Welcome</span>
+                </div>
+            </div>
+
+            <!-- Wallet -->
+            <div class="wallet-grid">
+                <div class="wallet-card"><div class="amount" id="walletWithdraw">0 UGX</div><div class="label">Withdraw Wallet</div></div>
+                <div class="wallet-card"><div class="amount" id="walletRecharge">0 UGX</div><div class="label">Recharge Wallet</div></div>
+                <div class="wallet-card"><div class="amount" id="walletToday">0 UGX</div><div class="label">Today Income</div></div>
+                <div class="wallet-card"><div class="amount" id="walletTeam">0 UGX</div><div class="label">Team Income</div></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-action primary" onclick="triggerRecharge()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></svg>
+                    Recharge
+                </button>
+                <button class="btn-action secondary" onclick="triggerWithdraw()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3" /><path d="m6 11 6 6 6-6" /><path d="M19 21H5" /></svg>
+                    Withdraw
+                </button>
+            </div>
+
+            <!-- MY PRODUCTS SECTION -->
+            <div class="my-products-section">
+                <div class="section-head" style="padding:0;margin:16px 0 12px;">
+                    <div class="section-head-left">
+                        <span class="accent-bar"></span>
+                        <h2>My Investments</h2>
+                    </div>
+                </div>
+                <div id="myProductsContainer">
+                    <!-- Dynamic content from JS -->
+                </div>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="menu-grid">
+                <a class="menu-item" href="#" onclick="openMyProducts(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /><circle cx="12" cy="12" r="3" /></svg></span>
+                    <span class="label">My Product</span>
+                </a>
+                <a class="menu-item" href="#" onclick="bindAccount(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></svg></span>
+                    <span class="label">Bind Account</span>
+                </a>
+                <a class="menu-item" href="#" onclick="redeemBonus(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg></span>
+                    <span class="label">Bonus Code</span>
+                </a>
+                <a class="menu-item" href="#" onclick="showCashRecord(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg></span>
+                    <span class="label">Cash Record</span>
+                </a>
+                <a class="menu-item" href="#" onclick="changePassword(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg></span>
+                    <span class="label">Password</span>
+                </a>
+                <a class="menu-item" href="#" onclick="triggerCheckin(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg></span>
+                    <span class="label">Check-in</span>
+                </a>
+                <a class="menu-item" href="#" onclick="openSupport(); return false;">
+                    <span class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg></span>
+                    <span class="label">Support</span>
+                </a>
+            </div>
+
+            <!-- Support Links -->
+            <div class="support-links" style="margin-bottom:30px;">
+                <a class="support-link" href="https://t.me/your_group_link" target="_blank" rel="noopener noreferrer">
+                    <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" /><circle cx="10" cy="8" r="5" /><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></svg></div>
+                    <div class="info"><div class="title">TELEGRAM GROUP</div><div class="sub">Join now ↗</div></div>
+                    <span class="arrow">›</span>
+                </a>
+            </div>
+
+            <!-- Sign Out -->
+            <button class="btn-signout" style="margin-bottom:30px;" onclick="logoutUser();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 5-5-5-5" /><path d="M21 12H9" /><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></svg>
+                Sign Out
+            </button>
+
+            <!-- Spacer -->
+            <div class="bottom-spacer"></div>
+
+            <!-- Bottom Nav -->
+            <nav class="bottom-nav">
+                <div class="nav-grid">
+                    <a class="nav-item" href="#" onclick="switchPage('page-home'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                        </svg>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-machines'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4" />
+                            <path d="M12 3v1" />
+                            <path d="M12 20v1" />
+                            <path d="M3 12h1" />
+                            <path d="M20 12h1" />
+                            <path d="m18.364 5.636-.707.707" />
+                            <path d="m6.343 17.657-.707.707" />
+                            <path d="m5.636 5.636.707.707" />
+                            <path d="m17.657 17.657.707.707" />
+                        </svg>
+                        <span class="nav-label">Machine</span>
+                    </a>
+                    <a class="nav-item" href="#" onclick="switchPage('page-team'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <circle cx="9" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Team</span>
+                    </a>
+                    <a class="nav-item active" href="#" onclick="switchPage('page-account'); return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <span class="nav-label">Me</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+    </div><!-- /app -->
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="./api-config.js"></script>
+    <script>
+        // ============================================================
+        // API BASE
+        // ============================================================
+        const API_BASE = String(window.RHINOVERSE_API_BASE || localStorage.getItem('rhinoverseApiBase') || 'https://rhinoversebackend.vercel.app/api').replace(/\/+$/, '');
+
+        // ============================================================
+        // TOAST HELPER
+        // ============================================================
+        function showToast(message, type, duration) {
+            type = type || 'info';
+            duration = duration || 4000;
+            const icons = {
+                success: '<svg class="toast-icon success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>',
+                error: '<svg class="toast-icon error" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" /></svg>',
+                info: '<svg class="toast-icon info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>'
+            };
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = (icons[type] || icons.info) + '<span class="toast-msg">' + message + '</span>';
+            document.getElementById('toastContainer').appendChild(toast);
+            requestAnimationFrame(function() { toast.classList.add('show'); });
+            setTimeout(function() {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(function() { if (toast.parentNode) toast.remove(); }, 350);
+            }, duration);
+        }
+
+        // ============================================================
+        // AUTH HELPERS
+        // ============================================================
+        function getToken() {
+            return localStorage.getItem('token');
+        }
+
+        function setToken(token) {
+            localStorage.setItem('token', token);
+        }
+
+        function isLoggedIn() {
+            return !!getToken();
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('token');
+            switchPage('page-register');
+        }
+
+        // ============================================================
+        // API CALLS
+        // ============================================================
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const headers = {
+                'Content-Type': 'application/json',
+            };
+            const token = getToken();
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            const options = {
+                method,
+                headers,
+            };
+            if (body) {
+                options.body = JSON.stringify(body);
+            }
+            let res;
+            try {
+                res = await fetch(`${API_BASE}${endpoint}`, options);
+            } catch (networkError) {
+                throw new Error(`Cannot reach Rhinoverse backend (${API_BASE}). Check the backend Vercel deployment URL and environment variables, then open ${API_BASE}/health to test it.`);
+            }
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.error || data.message || `Request failed (${res.status})`);
+            return data;
+        }
+
+        // ============================================================
+        // PAGE SWITCHING
+        // ============================================================
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navMap = {
+                'page-home': 0,
+                'page-machines': 1,
+                'page-team': 2,
+                'page-account': 3
+            };
+            const idx = navMap[pageId];
+            if (idx !== undefined) {
+                const navs = document.querySelectorAll('.nav-item');
+                if (navs[idx]) navs[idx].classList.add('active');
+            }
+
+            document.getElementById('app').scrollTop = 0;
+            window.scrollTo(0, 0);
+
+            if (pageId === 'page-home' || pageId === 'page-machines') {
+                loadProducts();
+            }
+            if (pageId === 'page-account') {
+                loadMyProducts();
+                updateWalletUI();
+            }
+        }
+
+        // ============================================================
+        // REGISTER & LOGIN
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if already logged in
+            if (isLoggedIn()) {
+                switchPage('page-home');
+                loadProducts();
+                updateWalletUI();
+            } else {
+                switchPage('page-register');
+            }
+
+            // Register form
+            document.getElementById('registerForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const username = document.getElementById('fullName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const password = document.getElementById('password').value.trim();
+                const referrer = document.getElementById('referral').value.trim() || null;
+
+                // Validate
+                if (!username || !phone || !password) {
+                    showToast('Please fill all fields.', 'error');
+                    return;
+                }
+                if (!/^07\d{8}$/.test(phone)) {
+                    showToast('Phone must be 10 digits starting with 07.', 'error');
+                    return;
+                }
+                if (!/^\d{6}$/.test(password)) {
+                    showToast('Password must be exactly 6 digits.', 'error');
+                    return;
+                }
+
+                try {
+                    const data = await apiCall('/register', 'POST', { username, phone, password, referrer });
+                    if (data.token) {
+                        setToken(data.token);
+                        showToast('Welcome Bonus Added · Registration successful! Welcome ' + username + (data.user?.referralCode ? ' · Your referral code: ' + data.user.referralCode : ''), 'success', 6500);
+                        document.getElementById('profileName').textContent = '@' + username;
+                        document.getElementById('profilePhone').textContent = 'Phone: ' + phone;
+                        switchPage('page-home');
+                        loadProducts();
+                        updateWalletUI();
+                    } else {
+                        showToast(data.message || 'Registration failed.', 'error');
+                    }
+                } catch (err) {
+                    showToast(err.message || 'Request failed. Please try again.', 'error', 6500);
+                }
+            });
+
+            // Login form – we need a login page. Currently there's a link to "Already have an account? Login"
+            // We'll create a simple login form in page-register? Actually the existing page has a footer link that calls switchPage('page-home') – that's wrong.
+            // We'll add a login page or modify the link to show a login form.
+            // For simplicity, I'll add a login form in the register page but hidden by default.
+            // Let's create a login page element.
+            // Since the user's original HTML didn't have a separate login page, I'll add one now.
+            // I'll insert a new div for login after the register page.
+            // But to keep it clean, I'll create a login page using JavaScript to show/hide.
+            // For this answer, I'll assume the user will add a login page or I'll provide a quick login form.
+            // I'll modify the footer link to toggle between register and login.
+            // We'll add a login form inside the register page.
+            // Since the HTML is already huge, I'll add it dynamically via JS.
+            // Actually, the easiest: add a login form in the register card with display none, and toggle.
+            // I'll add it now.
+            // I'll insert a login form after the register form.
+            const registerCard = document.querySelector('.register-card');
+            const loginFormHTML = `
+                <div id="loginFormContainer" style="display:none;">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <div class="input-wrap">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                <input type="tel" id="loginPhone" placeholder="07XXXXXXXX" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-wrap">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                <input type="password" id="loginPassword" placeholder="••••••" required />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit">Login</button>
+                    </form>
+                    <p class="footer-link">Don't have an account? <a href="#" onclick="toggleAuthForm()">Register</a></p>
+                </div>
+            `;
+            registerCard.insertAdjacentHTML('beforeend', loginFormHTML);
+
+            // Toggle between register and login
+            window.toggleAuthForm = function() {
+                const reg = document.getElementById('registerForm');
+                const login = document.getElementById('loginFormContainer');
+                if (reg.style.display === 'none') {
+                    reg.style.display = 'block';
+                    login.style.display = 'none';
+                } else {
+                    reg.style.display = 'none';
+                    login.style.display = 'block';
+                }
+            };
+
+            // Login form submit
+            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const phone = document.getElementById('loginPhone').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+                if (!phone || !password) {
+                    showToast('Please fill all fields.', 'error');
+                    return;
+                }
+                if (!/^07\d{8}$/.test(phone)) {
+                    showToast('Enter your 10-digit Uganda phone number starting with 07.', 'error');
+                    return;
+                }
+                try {
+                    const data = await apiCall('/login', 'POST', { phone, password });
+                    if (data.token) {
+                        setToken(data.token);
+                        showToast('Welcome back!', 'success');
+                        document.getElementById('profileName').textContent = '@' + data.user.username;
+                        document.getElementById('profilePhone').textContent = 'Phone: ' + data.user.phone;
+                        switchPage('page-home');
+                        loadProducts();
+                        updateWalletUI();
+                    } else {
+                        showToast(data.message || 'Login failed.', 'error');
+                    }
+                } catch (err) {
+                    showToast(err.message || 'Request failed. Please try again.', 'error', 6500);
+                }
+            });
+
+            // Update footer link to toggle
+            const footerLink = document.querySelector('.footer-link a');
+            if (footerLink) {
+                footerLink.textContent = 'Login';
+                footerLink.onclick = function(e) {
+                    e.preventDefault();
+                    toggleAuthForm();
+                };
+            }
+
+            // Load products if on home
+            if (document.getElementById('page-home').classList.contains('active')) {
+                loadProducts();
+            }
+            if (document.getElementById('page-account').classList.contains('active')) {
+                loadMyProducts();
+                updateWalletUI();
+            }
+        });
+
+        // ============================================================
+        // PRODUCTS
+        // ============================================================
+        async function loadProducts() {
+            const homeContainer = document.getElementById('homeProductsContainer');
+            const allContainer = document.getElementById('allProductsContainer');
+            [homeContainer, allContainer].filter(Boolean).forEach(c => { c.innerHTML = '<p style="padding:16px;color:#d4af37;text-align:center">Loading packages…</p>'; });
+            try {
+                console.log('[Rhinoverse] Loading products from', API_BASE + '/products');
+                const data = await apiCall('/products');
+                // The API currently returns an array directly; support all documented legacy shapes too.
+                const products = Array.isArray(data) ? data : (Array.isArray(data.products) ? data.products : (Array.isArray(data.data) ? data.data : (Array.isArray(data.items) ? data.items : [])));
+                console.log('[Rhinoverse] Product count:', products.length);
+                if (!products.length) {
+                    const empty = '<p style="padding:18px;text-align:center;color:#b7b7a7">No packages are available right now.</p>';
+                    [homeContainer, allContainer].filter(Boolean).forEach(c => c.innerHTML = empty);
+                    return;
+                }
+                const html = products.map(generateProductCard).join('');
+                if (homeContainer) homeContainer.innerHTML = html;
+                if (allContainer) allContainer.innerHTML = html;
+            } catch (err) {
+                console.error('[Rhinoverse] Product load failed:', err);
+                const message = '<p style="padding:18px;text-align:center;color:#e7c84a">Packages could not load. Please refresh and try again.</p>';
+                [homeContainer, allContainer].filter(Boolean).forEach(c => c.innerHTML = message);
+                showToast('Could not load packages: ' + (err.message || 'network error'), 'error');
+            }
+        }
+
+        function generateProductCard(product) {
+            return `
+                <article class="product-card" data-id="${product.id}">
+                    <div class="product-header">
+                        <h3>${product.name}</h3>
+                        <span class="product-badge">${product.badge || 'Package'}</span>
+                    </div>
+                    <div class="product-body">
+                        <div class="product-img">${product.icon || '🦏'}</div>
+                        <dl class="product-dl">
+                            <div class="row"><dt>Price</dt><dd>${Number(product.price || 0).toLocaleString()} UGX</dd></div>
+                            <div class="row"><dt>Income Cycle</dt><dd>${product.cycleDays || 60} Days</dd></div>
+                            <div class="row"><dt>Daily Income</dt><dd class="highlight">${Number(product.dailyIncome || 0).toLocaleString()} UGX</dd></div>
+                            <div class="row"><dt>Est. Income</dt><dd class="highlight">${(Number(product.dailyIncome || 0) * Number(product.cycleDays || 60)).toLocaleString()} UGX</dd></div>
+                        </dl>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">${product.price.toLocaleString()} <small>UGX</small></span>
+                        <button class="btn-rent" onclick="purchaseProduct('${product.id}')">Rent Now</button>
+                    </div>
+                </article>
+            `;
+        }
+
+        // ============================================================
+        // PURCHASE PRODUCT
+        // ============================================================
+        async function purchaseProduct(productId) {
+            if (!isLoggedIn()) {
+                showToast('Please login first.', 'error');
+                return;
+            }
+            if (!confirm('Buy this product?')) return;
+            try {
+                const data = await apiCall('/rent', 'POST', { productId });
+                showToast(data.message || 'Product purchased successfully.', 'success');
+                await updateWalletUI();
+                await loadProducts();
+            } catch (err) {
+                showToast(err.message || 'Purchase failed.', 'error');
+            }
+        }
+
+        // ============================================================
+        // WALLET
+        // ============================================================
+        async function updateWalletUI() {
+            if (!isLoggedIn()) return;
+            try {
+                const data = await apiCall('/wallet/balance');
+                if (data.wallets || data.data || data.recharge !== undefined) {
+                    const wallet = data.wallets || data.data || data;
+                    document.getElementById('walletRecharge').textContent = (wallet.rechargeWallet ?? wallet.recharge ?? 0).toLocaleString() + ' UGX';
+                    document.getElementById('walletWithdraw').textContent = (wallet.withdrawalWallet ?? wallet.withdrawal ?? 0).toLocaleString() + ' UGX';
+                    // For today income and team income – we'll use placeholder or later implement
+                }
+            } catch (err) {
+                // silent
+            }
+        }
+
+        // ============================================================
+        // CHECK-IN
+        // ============================================================
+        async function triggerCheckin() {
+            if (!isLoggedIn()) {
+                showToast('Please login first.', 'error');
+                return;
+            }
+            try {
+                const data = await apiCall('/checkin', 'POST');
+                showToast(data.message || 'Check-in successful', 'success');
+                updateWalletUI();
+            } catch (err) {
+                showToast(err.message || 'Request failed.', 'error', 6500);
+            }
+        }
+
+        // ============================================================
+        // WITHDRAW
+        // ============================================================
+        async function triggerWithdraw() {
+            if (!isLoggedIn()) { showToast('Please login first.', 'error'); return; }
+            const amountText = prompt('Enter withdrawal amount in UGX (minimum 5000):');
+            if (!amountText) return;
+            const amount = Number(amountText);
+            if (!Number.isInteger(amount) || amount < 5000) { showToast('Minimum withdrawal is 5000 UGX.', 'error'); return; }
+            try {
+                const u = await apiCall('/user');
+                if (!u.boundAccount || !u.boundAccount.bankName || !u.boundAccount.accountNumber || !u.boundAccount.holderName) {
+                    showToast('Please bind your bank account first.', 'error');
+                    return;
+                }
+                if (!confirm(`Submit a ${amount.toLocaleString()} UGX withdrawal for admin approval?`)) return;
+                const data = await apiCall('/withdrawals', 'POST', { amount });
+                showToast(data.message || 'Withdrawal submitted for admin approval.', 'success', 6000);
+                await updateWalletUI();
+            } catch (err) { showToast(err.message || 'Withdrawal request failed.', 'error', 6000); }
+        }
+
+        async function pollRechargeStatus(reference) {
+            for (let i = 0; i < 15; i++) {
+                await new Promise(resolve => setTimeout(resolve, 4000));
+                try {
+                    const status = await apiCall(`/marzpay/recharge/${encodeURIComponent(reference)}`);
+                    if (status.status === 'success' && status.credited) {
+                        showToast('Recharge confirmed and wallet credited.', 'success', 6000);
+                        await updateWalletUI();
+                        return;
+                    }
+                    if (status.status === 'failed') {
+                        showToast('MARZ Pay reported that the recharge failed. Your wallet was not credited.', 'error', 6000);
+                        return;
+                    }
+                } catch (err) {
+                    console.warn('[Rhinoverse] Recharge status is not yet available:', err.message);
+                }
+            }
+            showToast('Recharge is still pending. Do not make another payment yet; check Cash Record for the final status.', 'info', 7000);
+        }
+
+        function closeRechargeModal() {
+            const modal = document.getElementById('rhinoRechargeModal');
+            if (modal) modal.remove();
+        }
+
+        async function submitRechargeForm(event) {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const submit = form.querySelector('[type="submit"]');
+            const amount = Number(form.elements.amount.value);
+            const phone = String(form.elements.phone_number.value || '').trim();
+            const network = String(form.elements.network.value || '');
+            const allowed = [500, 1000, 3000, 5000, 10000];
+            const digits = phone.replace(/[^0-9]/g, '');
+            const local = digits.startsWith('256') ? digits.slice(3) : digits.startsWith('0') ? digits.slice(1) : digits;
+            if (!allowed.includes(amount)) { showToast('Choose a listed recharge amount.', 'error'); return; }
+            if (!/^7\d{8}$/.test(local)) { showToast('Enter a valid Uganda mobile-money number, e.g. 07XXXXXXXX.', 'error'); return; }
+            if (!network) { showToast('Select MTN or Airtel.', 'error'); return; }
+            submit.disabled = true;
+            submit.textContent = 'Starting secure payment…';
+            try {
+                const data = await apiCall('/create-marz-payment', 'POST', { amount, phone_number: local, network });
+                closeRechargeModal();
+                showToast(data.message || 'Recharge request submitted. Approve the prompt on your phone if it arrives.', 'info', 7000);
+                if (data.reference) pollRechargeStatus(data.reference);
+                else showToast('No recharge reference was returned. Check Cash Record before trying again.', 'error', 7000);
+            } catch (err) {
+                submit.disabled = false;
+                submit.textContent = 'Request payment prompt';
+                showToast(err.message || 'Recharge could not be started. No wallet credit was made.', 'error', 8000);
+            }
+        }
+
+        function triggerRecharge() {
+            if (!isLoggedIn()) { showToast('Please login first.', 'error'); return; }
+            if (document.getElementById('rhinoRechargeModal')) return;
+            const modal = document.createElement('div');
+            modal.id = 'rhinoRechargeModal';
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'rhinoRechargeTitle');
+            modal.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px;';
+            modal.innerHTML = `
+              <div style="width:min(100%,420px);background:#1d2d1e;border:1px solid rgba(212,175,55,.45);border-radius:20px;padding:22px;color:#f5efe6;box-shadow:0 20px 70px #0009;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;">
+                  <h2 id="rhinoRechargeTitle" style="margin:0;color:#d4af37;font-size:22px;">Recharge Wallet</h2>
+                  <button type="button" id="rhinoRechargeClose" aria-label="Close" style="background:transparent;border:0;color:#f5efe6;font-size:28px;padding:0 6px;">×</button>
+                </div>
+                <p style="margin:0 0 16px;color:#c8c9bd;font-size:13px;line-height:1.5;">Enter the mobile-money number that should receive the payment prompt. Your wallet is credited only after payment is confirmed.</p>
+                <form id="rhinoRechargeForm">
+                  <label for="rhinoRechargeAmount" style="display:block;margin:0 0 7px;font-size:13px;">Amount (UGX)</label>
+                  <select id="rhinoRechargeAmount" name="amount" required style="box-sizing:border-box;width:100%;padding:13px;margin-bottom:14px;border-radius:10px;border:1px solid #56614a;background:#263927;color:#fff;font-size:16px;">
+                    <option value="500">500 UGX</option><option value="1000">1,000 UGX</option><option value="3000">3,000 UGX</option><option value="5000" selected>5,000 UGX</option><option value="10000">10,000 UGX</option>
+                  </select>
+                  <label for="rhinoRechargePhone" style="display:block;margin:0 0 7px;font-size:13px;">Uganda mobile-money number</label>
+                  <input id="rhinoRechargePhone" name="phone_number" type="tel" inputmode="tel" autocomplete="tel" placeholder="07XXXXXXXX or +2567XXXXXXXX" required style="box-sizing:border-box;width:100%;padding:13px;margin-bottom:14px;border-radius:10px;border:1px solid #56614a;background:#263927;color:#fff;font-size:16px;">
+                  <label for="rhinoRechargeNetwork" style="display:block;margin:0 0 7px;font-size:13px;">Mobile-money network</label>
+                  <select id="rhinoRechargeNetwork" name="network" required style="box-sizing:border-box;width:100%;padding:13px;margin-bottom:18px;border-radius:10px;border:1px solid #56614a;background:#263927;color:#fff;font-size:16px;"><option value="">Select network</option><option value="MTN">MTN Mobile Money</option><option value="AIRTEL">Airtel Money</option></select>
+                  <button type="submit" style="width:100%;padding:14px;border:0;border-radius:12px;background:#d4af37;color:#182218;font-weight:800;font-size:16px;">Request payment prompt</button>
+                </form>
+              </div>`;
+            document.body.appendChild(modal);
+            modal.querySelector('#rhinoRechargeClose').addEventListener('click', closeRechargeModal);
+            modal.addEventListener('click', event => { if (event.target === modal) closeRechargeModal(); });
+            modal.querySelector('#rhinoRechargeForm').addEventListener('submit', submitRechargeForm);
+            modal.querySelector('#rhinoRechargePhone').focus();
+        }
+        window.triggerRecharge = triggerRecharge;
+        async function openMyProducts(){try{const d=await apiCall('/investments/my-products');const ps=d.products||d.data||[];const c=document.getElementById('myProductsContainer');if(!ps.length){c.innerHTML='<div class="empty-state">You haven\'t invested in any product yet.<br>Browse the <a href="#" onclick="switchPage(\'page-machines\');return false;" style="color:#d4af37">packages</a> and start earning!</div>';}else{c.innerHTML=ps.map(p=>`<div class="product-item"><div class="product-info"><div class="product-name">${p.name||'Product'}</div><div class="product-details">Price: ${Number(p.price||0).toLocaleString()} UGX · Purchased: ${p.purchaseDate?new Date(p.purchaseDate).toLocaleDateString():'—'}</div></div><div class="product-daily">${p.active?'Active':'Inactive'}</div></div>`).join('');}switchPage('page-account');}catch(e){showToast(e.message,'error');}}
+        async function bindAccount(){const bankName=prompt('Bank name:');if(!bankName)return;const accountNumber=prompt('Account number:');if(!accountNumber)return;const holderName=prompt('Account holder full name:');if(!holderName)return;try{const d=await apiCall('/user/bind-account','POST',{bankName,accountNumber,holderName});showToast(d.message||'Account bound','success');}catch(e){showToast(e.message,'error');}}
+        async function redeemBonus(){const code=prompt('Enter bonus code:');if(!code)return;try{const d=await apiCall('/bonus/redeem','POST',{code});showToast(`${d.message||'Bonus redeemed'}${d.credited?': '+Number(d.credited).toLocaleString()+' UGX':''}`,'success');updateWalletUI();}catch(e){showToast(e.message,'error');}}
+        async function showCashRecord(){try{const d=await apiCall('/transactions/history');const rows=d.transactions||d.data||[];const c=document.getElementById('myProductsContainer');c.innerHTML=rows.length?rows.map(t=>`<div class="product-item"><div class="product-info"><div class="product-name">${String(t.type||'transaction').replace(/[<>]/g,'')}</div><div class="product-details">${t.createdAt?new Date(t.createdAt).toLocaleString():''}</div></div><div class="product-daily">${Number(t.amount||0).toLocaleString()} UGX<br>${t.status||'recorded'}</div></div>`).join(''):'<div class="empty-state">No transactions yet.</div>';switchPage('page-account');}catch(e){showToast(e.message,'error');}}
+        async function changePassword(){const oldPassword=prompt('Current password:');if(!oldPassword)return;const newPassword=prompt('New password (at least 6 characters):');if(!newPassword)return;try{const d=await apiCall('/auth/change-password','POST',{oldPassword,newPassword});showToast(d.message||'Password changed','success');}catch(e){showToast(e.message,'error');}}
+        async function openSupport(){try{const d=await apiCall('/support/tickets');const tickets=d.tickets||[];const subject=prompt('Support subject:');if(!subject)return;const message=prompt('Describe your issue:');if(!message)return;const created=await apiCall('/support/tickets','POST',{subject,message});showToast(created.message||'Support ticket submitted','success');}catch(e){showToast(e.message,'error');}}
+
+        // ============================================================
+        // MY PRODUCTS (Account Page)
+        // ============================================================
+        async function loadMyProducts() {
+            if (!isLoggedIn()) return;
+            try {
+                const data = await apiCall('/products/my');
+                const container = document.getElementById('myProductsContainer');
+                const products = data.products || data.data || [];
+                if (products.length > 0) {
+                    container.innerHTML = products.map(p => `
+                        <div class="product-item">
+                            <div class="product-info">
+                                <div class="product-name">${p.name || p.productId?.name || 'Product'}</div>
+                                <div class="product-details">Price: ${p.price.toLocaleString()} UGX · Purchased: ${p.purchaseDate ? new Date(p.purchaseDate).toLocaleDateString() : (p.purchasedAt ? new Date(p.purchasedAt).toLocaleDateString() : '—')}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div class="product-daily">+${p.dailyIncome.toLocaleString()} UGX / day</div>
+                                <div class="product-total">Total earned: ${(p.dailyIncome * (60 - p.daysRemaining)).toLocaleString()} UGX</div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `<div class="empty-state">You haven't invested in any product yet.<br/>Browse the <a href="#" onclick="switchPage('page-machines'); return false;" style="color:#d4af37;">packages</a> and start earning!</div>`;
+                }
+            } catch (err) {
+                // silent
+            }
+        }
+
+        // ============================================================
+        // COPY HELPER
+        // ============================================================
+        function copyText(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Copied: ' + text);
+                }).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                alert('Copied: ' + text);
+            } catch (e) {
+                alert('Could not copy. Please copy manually.');
+            }
+            document.body.removeChild(ta);
+        }
+
+        // ============================================================
+        // TEAM PAGE — authenticated referral data from the backend
+        let activeTeamLevel = 1;
+        let cachedTeamData = null;
+        function escapeTeamText(value) {
+            return String(value ?? '').replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
+        }
+        function formatTeamDate(value) {
+            if (!value) return '—';
+            const date = value._seconds ? new Date(value._seconds * 1000) : new Date(value);
+            return Number.isNaN(date.getTime()) ? '—' : date.toLocaleDateString();
+        }
+        function renderTeamLevel(level) {
+            activeTeamLevel = Number(level) || 1;
+            const members = cachedTeamData?.[`level${activeTeamLevel}`] || [];
+            const commission = Number(cachedTeamData?.commissions?.[activeTeamLevel] || 0);
+            document.querySelectorAll('.team-tab').forEach(tab => tab.classList.toggle('active', Number(tab.dataset.level) === activeTeamLevel));
+            document.getElementById('levelMembers').textContent = String(members.length);
+            document.getElementById('levelCommission').textContent = `${commission.toLocaleString()} UGX`;
+            document.getElementById('levelMemberCount').textContent = String(members.length);
+            const list = document.getElementById('memberListContainer');
+            if (!members.length) {
+                list.innerHTML = '<div style="padding:24px 14px;text-align:center;font-size:13px;color:rgba(245,239,230,0.55);">No members at this level yet.</div>';
+                return;
+            }
+            list.innerHTML = members.map(member => `<div style="display:grid;grid-template-columns:1.2fr 1fr .8fr;gap:8px;padding:14px;border-top:1px solid rgba(212,175,55,.08);font-size:12px;color:#f5efe6;"><span>${escapeTeamText(member.username || 'Member')}</span><span style="text-align:center;">${escapeTeamText(formatTeamDate(member.joinedAt))}</span><span style="text-align:center;">${escapeTeamText(member.status || 'Active')}</span></div>`).join('');
+        }
+        async function renderTeamPage() {
+            const list = document.getElementById('memberListContainer');
+            list.innerHTML = '<div style="padding:24px 14px;text-align:center;font-size:13px;color:rgba(245,239,230,0.55);">Loading team…</div>';
+            try {
+                const [team, profile] = await Promise.all([apiCall('/team'), apiCall('/user')]);
+                cachedTeamData = team;
+                const code = team.referralCode || profile.referralCode || '';
+                document.getElementById('inviteCodeDisplay').textContent = code || 'Not available';
+                document.getElementById('inviteLinkRef').textContent = code;
+                document.getElementById('totalTeamIncome').textContent = `${Number(team.totalTeamIncome || 0).toLocaleString()} UGX`;
+                document.getElementById('totalInvitations').textContent = String(Number(team.totalInvitations ?? (team.level1 || []).length));
+                document.getElementById('activeMembers').textContent = String(Number(team.activeMembers || 0));
+                document.getElementById('yourBonus').textContent = `${Number(team.yourBonus || 0).toLocaleString()} UGX`;
+                renderTeamLevel(activeTeamLevel);
+            } catch (error) {
+                list.innerHTML = `<div style="padding:24px 14px;text-align:center;font-size:13px;color:#ef9a9a;">Could not load team data: ${escapeTeamText(error.message || 'Please try again.')}</div>`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.team-tab').forEach(tab => tab.addEventListener('click', () => renderTeamLevel(tab.dataset.level)));
+            const referralFromUrl = new URLSearchParams(window.location.search).get('ref');
+            const referralInput = document.getElementById('referral');
+            if (referralFromUrl && referralInput && !referralInput.value) referralInput.value = referralFromUrl;
+            const origSwitch = switchPage;
+            switchPage = function(pageId) {
+                origSwitch(pageId);
+                if (pageId === 'page-team') renderTeamPage();
+                if (pageId === 'page-account') { loadMyProducts(); updateWalletUI(); }
+                if (pageId === 'page-home' || pageId === 'page-machines') loadProducts();
+            };
+            if (document.getElementById('page-team').classList.contains('active')) renderTeamPage();
+        });
+
+        document.getElementById('rechargeBtn')?.addEventListener('click', triggerRecharge);
+        document.getElementById('withdrawBtn')?.addEventListener('click', triggerWithdraw);
+        console.log('🦏 Rhinoverse — Backend‑connected version');
+    </script>
+</body>
+</html>
